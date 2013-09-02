@@ -1,0 +1,43 @@
+/ %form.form-inline.row{ :action => '/add-order', :method => 'POST', :style => "position: relative" }
+/   .form-group.col-lg-4
+/     %label.control-label{ :for => 'item-name' }
+/       Item Name:
+/     %input.form-control{ :type => 'text', :id => 'item-name' }
+/   .form-group.col-lg-2
+/     %label.control-label{ :for => 'item-vendor' }
+/       Vendor:
+/     %input.form-control{ :type => 'text', :id => 'item-vendor' }
+/   .form-group.col-lg-2
+/     %select.form-control{ :id => 'type' }
+/       %option{ :value => 'order' } order
+/       %option{ :value =>'rma' } RMA
+/   .form-group.col-lg-2.col-lg-offset-2
+/     %input.form-control{ :type => 'submit', :value => 'Add' }
+/   .clear{ :style => 'clear:both' }
+
+/ form sends 'item-name', 'item-vendor', 'type'
+
+%form.form-inline.row{ :action => '/add-order', :method => 'POST', :style => "position: relative" }
+  .form-group.col-lg-4
+    %input.form-control{ :type => 'text', :name => 'item-name', :placeholder => 'description' }
+  .form-group.col-lg-2
+    %input.form-control{ :type => 'text', :name => 'item-vendor', :placeholder => 'vendor' }
+  .form-group.col-lg-2
+    %select.form-control{ :name => 'type' }
+      %option{ :value => 'order' } order
+      %option{ :value =>'rma' } RMA
+    / %span type
+  %button.btn.btn-default.col-lg-2.col-lg-offset-2{ :type => 'submit' } Add
+%br{:style => 'line-height: 2em'}
+    
+
+
+- @orders.each do |o|
+  .row
+    .col-lg-2 #{o.oitem}
+    .col-lg-2 - #{o.ovendor}
+
+
+:sass 
+  .row
+    margin-bottom: 1em
