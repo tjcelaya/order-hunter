@@ -1,23 +1,44 @@
 / form sends 'item-name', 'item-vendor', 'type'
 
 %form.form-inline.row{ :action => '/add-order', :method => 'POST', :style => "position: relative" }
-  .form-group.col-lg-4
+  .form-group.col-lg-3
     %input.form-control{ :type => 'text', :name => 'item-name', :placeholder => 'description' }
   .form-group.col-lg-2
     %input.form-control{ :type => 'text', :name => 'item-vendor', :placeholder => 'vendor' }
+  .form-group.col-lg-2
+    %input.form-control{ :type => 'text', :name => 'item-purpose', :placeholder => 'purpose' }
   .form-group.col-lg-2
     %select.form-control{ :name => 'type' }
       %option{ :value => 'order' } order
       %option{ :value =>'rma' } RMA
     / %span type
-  %button.btn.btn-default.col-lg-2.col-lg-offset-2{ :type => 'submit' } Add
+  %button.btn.btn-default.col-lg-2{ :type => 'submit' } Add
 %br{:style => 'line-height: 2em'}
     
 - @orders.each do |o|
   .row
-    .col-lg-2 #{o.oitem}
-    .col-lg-2 - #{o.ovendor}
+    .col-lg-3 #{o.oitem}
+    .col-lg-2 #{o.ovendor}
+    .col-lg-2 #{o.opurpose}
+    .col-lg-2
+      - if !(o.ocreate.nil?)
+        = "#{(Date.today - o.ocreate).round.to_s} days"
+        .abs-date= "(#{o.ocreate})"
+    .col-lg-2
+      - if !(o.ocomplete.nil?)
+        .success= "Delivered in #{(o.ocomplete - o.ocreate).round.to_s} days!"
+        .abs-date= "(#{o.ocomplete})"
+      - else
+        X
+    %form.col-lg-1
+
+
 
 :sass 
   .row
     margin-bottom: 1em
+  .abs-date
+    font-style: italic
+    font-size: 80%
+  .success
+    color: dark green

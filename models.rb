@@ -17,7 +17,8 @@ class Order
   property :oid,      Serial
   property :oitem,    String
   property :ovendor,  String
-  property :ocreate,  Date,   :default => lambda { |r,p| Time.now }
+  property :opurpose, String
+  property :ocreate,  Date,   :default => lambda { |r,p| Date.today }
   property :ocomplete,Date
 end
 

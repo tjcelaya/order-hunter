@@ -12,11 +12,16 @@ get '/' do
 end
 
 post '/add-order' do
-  @o = Order.create(
-    :oitem => params[:"item-name"],
-    :ovendor => params[:"item-vendor"]
-    )
+  if params[:'item-name'] == ""
+    redirect '/'
+  end
 
+  @o = Order.create(
+    :oitem => params[:'item-name'],
+    :ovendor => params[:'item-vendor'],
+    :opurpose => params[:'item-purpose']
+  )
+  
   puts "SAVED =" + @o.saved?.to_s
   @o.errors.each do |error|  
       puts error
